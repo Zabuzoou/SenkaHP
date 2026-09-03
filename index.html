@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0c0d">
+    <title>GSX250R | A rua é o seu território</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --night: #090a0a;
+            --panel: #101211;
+            --soft-panel: #161817;
+            --gold: #c9a45a;
+            --bright-gold: #e5c47b;
+            --cream: #f1eee7;
+            --muted: #9b9c96;
+            --line: rgba(229, 196, 123, .22);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            background: var(--night);
+            color: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+        }
+        a { color: inherit; text-decoration: none; }
+        .page { overflow: hidden; }
+        .nav {
+            align-items: center;
+            display: flex;
+            justify-content: space-between;
+            left: 0;
+            padding: 28px 6vw;
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 5;
+        }
+        .brand { align-items: center; display: flex; gap: 12px; }
+        .brand-mark { border: 1px solid var(--gold); color: var(--bright-gold); font: 700 22px/1 'Barlow Condensed', sans-serif; letter-spacing: .08em; padding: 5px 7px; }
+        .brand-name { font-size: 11px; font-weight: 700; letter-spacing: .2em; }
+        .nav-links { display: flex; gap: 34px; }
+        .nav-links a { color: #bebdb6; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
+        .nav-links a:hover { color: var(--bright-gold); }
+        .nav-cta { border-bottom: 1px solid var(--gold); color: var(--bright-gold); font-size: 11px; letter-spacing: .16em; padding-bottom: 7px; text-transform: uppercase; }
+
+        .hero {
+            background: linear-gradient(90deg, rgba(8, 9, 9, .97) 0%, rgba(8, 9, 9, .77) 38%, rgba(8, 9, 9, .12) 76%), url('https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&w=2200&q=85') center/cover;
+            min-height: 720px;
+            padding: 190px 6vw 100px;
+            position: relative;
+        }
+        .hero::after { background: linear-gradient(0deg, var(--night), transparent 30%); content: ''; inset: 0; pointer-events: none; position: absolute; }
+        .hero-content { max-width: 690px; position: relative; z-index: 1; }
+        .eyebrow { color: var(--bright-gold); font-size: 11px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; }
+        h1, h2, h3, p { margin-top: 0; }
+        h1 { font: 800 clamp(76px, 12vw, 172px)/.78 'Barlow Condensed', sans-serif; letter-spacing: -.045em; margin: 28px 0; text-transform: uppercase; }
+        h1 span { color: transparent; -webkit-text-stroke: 1px var(--bright-gold); }
+        .hero-copy { color: #c4c3bc; font-size: 15px; line-height: 1.7; max-width: 370px; }
+        .button { align-items: center; background: var(--bright-gold); color: #11120f; display: inline-flex; font-size: 11px; font-weight: 700; gap: 18px; letter-spacing: .16em; margin-top: 24px; padding: 16px 20px; text-transform: uppercase; }
+        .button::after { content: '↗'; font-size: 17px; line-height: 10px; }
+        .hero-index { bottom: 45px; color: var(--gold); font: 500 16px 'Barlow Condensed', sans-serif; letter-spacing: .12em; position: absolute; right: 6vw; z-index: 1; }
+        .hero-index::before { background: var(--gold); content: ''; display: inline-block; height: 1px; margin: 0 14px 5px 0; width: 44px; }
+
+        .stats { background: var(--panel); border-bottom: 1px solid #272a26; border-top: 1px solid #272a26; display: grid; grid-template-columns: repeat(4, 1fr); padding: 0 6vw; }
+        .stat { border-right: 1px solid #272a26; padding: 31px 28px; }
+        .stat:first-child { border-left: 1px solid #272a26; }
+        .stat strong { display: block; font: 700 40px/1 'Barlow Condensed', sans-serif; letter-spacing: .01em; }
+        .stat strong small { color: var(--gold); font-size: 18px; }
+        .stat span { color: var(--muted); display: block; font-size: 10px; letter-spacing: .14em; margin-top: 9px; text-transform: uppercase; }
+
+        .section { margin: auto; max-width: 1320px; padding: 120px 6vw; }
+        .section-label { color: var(--gold); font-size: 10px; letter-spacing: .25em; text-transform: uppercase; }
+        .intro { display: grid; gap: 60px; grid-template-columns: .8fr 1.2fr; }
+        h2 { font: 700 clamp(44px, 6vw, 78px)/.9 'Barlow Condensed', sans-serif; letter-spacing: -.025em; margin: 18px 0; text-transform: uppercase; }
+        h2 em { color: var(--bright-gold); font-style: normal; }
+        .intro-text { color: var(--muted); font-size: 15px; line-height: 1.8; padding-top: 35px; }
+        .feature-grid { display: grid; gap: 1px; grid-template-columns: repeat(3, 1fr); margin-top: 80px; }
+        .feature { background: var(--soft-panel); border-top: 2px solid transparent; padding: 28px; transition: border-color .25s, transform .25s; }
+        .feature:hover { border-color: var(--gold); transform: translateY(-5px); }
+        .feature-number { color: var(--gold); font: 500 14px 'Barlow Condensed', sans-serif; }
+        .feature h3 { font: 600 28px/1 'Barlow Condensed', sans-serif; margin: 54px 0 13px; text-transform: uppercase; }
+        .feature p { color: var(--muted); font-size: 13px; line-height: 1.65; margin: 0; }
+        .specs { align-items: center; background: #131513; display: grid; grid-template-columns: .95fr 1.05fr; max-width: none; padding-left: 12vw; padding-right: 12vw; }
+        .spec-photo { background: url('https://images.unsplash.com/photo-1558981359-219d6364c9c8?auto=format&fit=crop&w=1100&q=80') center/cover; height: 560px; position: relative; }
+        .spec-photo::after { border: 1px solid var(--gold); content: ''; inset: 16px; opacity: .55; position: absolute; }
+        .spec-content { padding: 50px 0 50px 80px; }
+        .spec-list { border-top: 1px solid #363832; margin-top: 38px; }
+        .spec-row { border-bottom: 1px solid #363832; display: flex; justify-content: space-between; padding: 15px 0; }
+        .spec-row span:first-child { color: var(--muted); font-size: 12px; }
+        .spec-row span:last-child { font-size: 13px; font-weight: 600; }
+        footer { align-items: center; border-top: 1px solid #292b27; display: flex; justify-content: space-between; padding: 28px 6vw; }
+        footer p { color: var(--muted); font-size: 10px; letter-spacing: .14em; margin: 0; text-transform: uppercase; }
+        .footer-slogan { color: var(--bright-gold); font: 600 18px 'Barlow Condensed', sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+
+        @media (max-width: 700px) {
+            .nav { padding: 22px 6vw; }
+            .nav-links { display: none; }
+            .nav-cta { font-size: 9px; }
+            .hero { min-height: 680px; padding: 170px 6vw 80px; background-position: 62% center; }
+            h1 { font-size: 94px; }
+            .stats { grid-template-columns: repeat(2, 1fr); padding: 0 6vw; }
+            .stat { padding: 22px 16px; }
+            .stat strong { font-size: 32px; }
+            .section { padding: 78px 6vw; }
+            .intro, .specs { display: block; }
+            .intro-text { padding-top: 5px; }
+            .feature-grid { grid-template-columns: 1fr; margin-top: 48px; }
+            .feature h3 { margin-top: 35px; }
+            .specs { padding: 0 6vw 78px; }
+            .spec-photo { height: 330px; margin: 0 -6vw; }
+            .spec-content { padding: 60px 0 0; }
+            footer { align-items: flex-start; flex-direction: column; gap: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <nav class="nav">
+            <a class="brand" href="#top" aria-label="GSX250R início"><span class="brand-mark">S</span><span class="brand-name">SUZUKI MOTORCYCLES</span></a>
+            <div class="nav-links"><a href="#essencia">A essência</a><a href="#detalhes">Detalhes</a><a href="#ficha">Ficha técnica</a></div>
+            <a class="nav-cta" href="#ficha">Conheça a máquina</a>
+        </nav>
+
+        <header class="hero" id="top">
+            <div class="hero-content">
+                <div class="eyebrow">Sportbike · 2024 edition</div>
+                <h1>GSX<span>250</span>R</h1>
+                <p class="hero-copy">A porta de entrada para o universo GSX. Leve, precisa e pronta para transformar cada trajeto em uma experiência memorável.</p>
+                <a class="button" href="#essencia">Explore a GSX250R</a>
+            </div>
+            <div class="hero-index">01 / 03</div>
+        </header>
+
+        <section class="stats" aria-label="Números da GSX250R">
+            <div class="stat"><strong>248<small> cc</small></strong><span>Motor bicilíndrico</span></div>
+            <div class="stat"><strong>25<small> cv</small></strong><span>Potência máxima</span></div>
+            <div class="stat"><strong>181<small> kg</small></strong><span>Peso em ordem de marcha</span></div>
+            <div class="stat"><strong>6<small> marchas</small></strong><span>Transmissão suave</span></div>
+        </section>
+
+        <main>
+            <section class="section intro" id="essencia">
+                <div><div class="section-label">01 — A essência</div><h2>Feita para<br><em>ir além.</em></h2></div>
+                <div class="intro-text"><p>Desenhada para quem não aceita que a rotina seja apenas rotina. A GSX250R combina a postura agressiva das grandes esportivas com uma condução intuitiva, confortável e cheia de personalidade.</p><p>Seu motor bicilíndrico entrega força linear e eficiência para a cidade, enquanto o chassi equilibrado convida a descobrir novas curvas.</p></div>
+            </section>
+
+            <section class="section" id="detalhes">
+                <div class="section-label">02 — Por que ela</div>
+                <div class="feature-grid">
+                    <article class="feature"><div class="feature-number">01</div><h3>Design que impõe presença</h3><p>Linhas de carenagem esculpidas, farol compacto e a assinatura GSX em cada ângulo.</p></article>
+                    <article class="feature"><div class="feature-number">02</div><h3>Controle absoluto</h3><p>Uma ciclística equilibrada para você se sentir no comando desde o primeiro quilômetro.</p></article>
+                    <article class="feature"><div class="feature-number">03</div><h3>Pronta para a vida real</h3><p>Ergonomia esportiva sem excessos: a companheira ideal para todos os seus caminhos.</p></article>
+                </div>
+            </section>
+
+            <section class="specs" id="ficha">
+                <div class="spec-photo" role="img" aria-label="Detalhe de uma motocicleta esportiva preta"></div>
+                <div class="spec-content"><div class="section-label">03 — Ficha técnica</div><h2>O que existe<br><em>por baixo.</em></h2><div class="spec-list"><div class="spec-row"><span>Tipo de motor</span><span>2 cilindros, 4 tempos</span></div><div class="spec-row"><span>Cilindrada</span><span>248 cm³</span></div><div class="spec-row"><span>Refrigeração</span><span>Líquida</span></div><div class="spec-row"><span>Alimentação</span><span>Injeção eletrônica</span></div><div class="spec-row"><span>Freios</span><span>Disco / ABS</span></div><div class="spec-row"><span>Tanque</span><span>15 litros</span></div></div></div>
+            </section>
+        </main>
+        <footer><p>© 2024 Suzuki Motor Corporation</p><div class="footer-slogan">Seu próximo capítulo começa agora.</div></footer>
+    </div>
+</body>
+</html>
