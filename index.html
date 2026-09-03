@@ -41,6 +41,7 @@
             top: 0;
             z-index: 5;
         }
+        .nav.scrolled { background: rgba(9, 10, 10, .92); border-bottom: 1px solid var(--line); padding-bottom: 18px; padding-top: 18px; position: fixed; transition: background .3s, padding .3s; }
         .brand { align-items: center; display: flex; gap: 12px; }
         .brand-mark { border: 1px solid var(--gold); color: var(--bright-gold); font: 700 22px/1 'Barlow Condensed', sans-serif; letter-spacing: .08em; padding: 5px 7px; }
         .brand-name { font-size: 11px; font-weight: 700; letter-spacing: .2em; }
@@ -57,6 +58,10 @@
         }
         .hero::after { background: linear-gradient(0deg, var(--night), transparent 30%); content: ''; inset: 0; pointer-events: none; position: absolute; }
         .hero-content { max-width: 690px; position: relative; z-index: 1; }
+        .hero-content > * { animation: rise-in .8s both; }
+        .hero-content > *:nth-child(2) { animation-delay: .12s; }
+        .hero-content > *:nth-child(3) { animation-delay: .22s; }
+        .hero-content > *:nth-child(4) { animation-delay: .32s; }
         .eyebrow { color: var(--bright-gold); font-size: 11px; font-weight: 700; letter-spacing: .28em; text-transform: uppercase; }
         h1, h2, h3, p { margin-top: 0; }
         h1 { font: 800 clamp(76px, 12vw, 172px)/.78 'Barlow Condensed', sans-serif; letter-spacing: -.045em; margin: 28px 0; text-transform: uppercase; }
@@ -75,6 +80,8 @@
         .stat span { color: var(--muted); display: block; font-size: 10px; letter-spacing: .14em; margin-top: 9px; text-transform: uppercase; }
 
         .section { margin: auto; max-width: 1320px; padding: 120px 6vw; }
+        .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s ease, transform .8s ease; }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
         .section-label { color: var(--gold); font-size: 10px; letter-spacing: .25em; text-transform: uppercase; }
         .intro { display: grid; gap: 60px; grid-template-columns: .8fr 1.2fr; }
         h2 { font: 700 clamp(44px, 6vw, 78px)/.9 'Barlow Condensed', sans-serif; letter-spacing: -.025em; margin: 18px 0; text-transform: uppercase; }
@@ -87,7 +94,7 @@
         .feature h3 { font: 600 28px/1 'Barlow Condensed', sans-serif; margin: 54px 0 13px; text-transform: uppercase; }
         .feature p { color: var(--muted); font-size: 13px; line-height: 1.65; margin: 0; }
         .specs { align-items: center; background: #131513; display: grid; grid-template-columns: .95fr 1.05fr; max-width: none; padding-left: 12vw; padding-right: 12vw; }
-        .spec-photo { background: url('https://images.unsplash.com/photo-1558981359-219d6364c9c8?auto=format&fit=crop&w=1100&q=80') center/cover; height: 560px; position: relative; }
+        .spec-photo { background: url('https://images.unsplash.com/photo-1568772585407-9361f9bf3a87?auto=format&fit=crop&w=1100&q=85') 72% center/cover; height: 560px; position: relative; }
         .spec-photo::after { border: 1px solid var(--gold); content: ''; inset: 16px; opacity: .55; position: absolute; }
         .spec-content { padding: 50px 0 50px 80px; }
         .spec-list { border-top: 1px solid #363832; margin-top: 38px; }
@@ -97,6 +104,8 @@
         footer { align-items: center; border-top: 1px solid #292b27; display: flex; justify-content: space-between; padding: 28px 6vw; }
         footer p { color: var(--muted); font-size: 10px; letter-spacing: .14em; margin: 0; text-transform: uppercase; }
         .footer-slogan { color: var(--bright-gold); font: 600 18px 'Barlow Condensed', sans-serif; letter-spacing: .08em; text-transform: uppercase; }
+        @keyframes rise-in { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; transition-duration: .01ms !important; } .reveal { opacity: 1; transform: none; } }
 
         @media (max-width: 700px) {
             .nav { padding: 22px 6vw; }
@@ -138,19 +147,19 @@
         </header>
 
         <section class="stats" aria-label="Números da GSX250R">
-            <div class="stat"><strong>248<small> cc</small></strong><span>Motor bicilíndrico</span></div>
-            <div class="stat"><strong>25<small> cv</small></strong><span>Potência máxima</span></div>
-            <div class="stat"><strong>181<small> kg</small></strong><span>Peso em ordem de marcha</span></div>
-            <div class="stat"><strong>6<small> marchas</small></strong><span>Transmissão suave</span></div>
+            <div class="stat"><strong><span class="stat-value" data-target="248">0</span><small> cc</small></strong><span>Motor bicilíndrico</span></div>
+            <div class="stat"><strong><span class="stat-value" data-target="25">0</span><small> cv</small></strong><span>Potência máxima</span></div>
+            <div class="stat"><strong><span class="stat-value" data-target="181">0</span><small> kg</small></strong><span>Peso em ordem de marcha</span></div>
+            <div class="stat"><strong><span class="stat-value" data-target="6">0</span><small> marchas</small></strong><span>Transmissão suave</span></div>
         </section>
 
         <main>
-            <section class="section intro" id="essencia">
+            <section class="section intro reveal" id="essencia">
                 <div><div class="section-label">01 — A essência</div><h2>Feita para<br><em>ir além.</em></h2></div>
                 <div class="intro-text"><p>Desenhada para quem não aceita que a rotina seja apenas rotina. A GSX250R combina a postura agressiva das grandes esportivas com uma condução intuitiva, confortável e cheia de personalidade.</p><p>Seu motor bicilíndrico entrega força linear e eficiência para a cidade, enquanto o chassi equilibrado convida a descobrir novas curvas.</p></div>
             </section>
 
-            <section class="section" id="detalhes">
+            <section class="section reveal" id="detalhes">
                 <div class="section-label">02 — Por que ela</div>
                 <div class="feature-grid">
                     <article class="feature"><div class="feature-number">01</div><h3>Design que impõe presença</h3><p>Linhas de carenagem esculpidas, farol compacto e a assinatura GSX em cada ângulo.</p></article>
@@ -159,12 +168,50 @@
                 </div>
             </section>
 
-            <section class="specs" id="ficha">
+            <section class="specs reveal" id="ficha">
                 <div class="spec-photo" role="img" aria-label="Detalhe de uma GSX250R esportiva com carenagem integral"></div>
                 <div class="spec-content"><div class="section-label">03 — Ficha técnica</div><h2>O que existe<br><em>por baixo.</em></h2><div class="spec-list"><div class="spec-row"><span>Tipo de motor</span><span>2 cilindros, 4 tempos</span></div><div class="spec-row"><span>Cilindrada</span><span>248 cm³</span></div><div class="spec-row"><span>Refrigeração</span><span>Líquida</span></div><div class="spec-row"><span>Alimentação</span><span>Injeção eletrônica</span></div><div class="spec-row"><span>Freios</span><span>Disco / ABS</span></div><div class="spec-row"><span>Tanque</span><span>15 litros</span></div></div></div>
             </section>
         </main>
         <footer><p>© 2024 Suzuki Motor Corporation</p><div class="footer-slogan">Seu próximo capítulo começa agora.</div></footer>
     </div>
+    <script>
+        const navigation = document.querySelector('.nav');
+        const revealItems = document.querySelectorAll('.reveal');
+        const statValues = document.querySelectorAll('.stat-value');
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.16 });
+
+        revealItems.forEach((item) => revealObserver.observe(item));
+
+        const countObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                const value = entry.target;
+                const target = Number(value.dataset.target);
+                const duration = 1100;
+                const startedAt = performance.now();
+                const updateCount = (now) => {
+                    const progress = Math.min((now - startedAt) / duration, 1);
+                    value.textContent = Math.floor(progress * target).toLocaleString('pt-BR');
+                    if (progress < 1) requestAnimationFrame(updateCount);
+                };
+                requestAnimationFrame(updateCount);
+                observer.unobserve(value);
+            });
+        }, { threshold: 0.7 });
+
+        statValues.forEach((value) => countObserver.observe(value));
+
+        window.addEventListener('scroll', () => {
+            navigation.classList.toggle('scrolled', window.scrollY > 24);
+        }, { passive: true });
+    </script>
 </body>
 </html>
